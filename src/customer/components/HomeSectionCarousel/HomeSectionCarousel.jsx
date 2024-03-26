@@ -3,9 +3,8 @@ import HomeSectionCards from "../HomeSectionCards/HomeSectionCards";
 import AliceCarousel from "react-alice-carousel";
 import { Button } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import { mens_kurta } from "../../../Data/mens_kurta";
 
-const HomeSectionCarousel = () => {
+const HomeSectionCarousel = ({ data, sectionName }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const responsive = {
     0: { items: 1 },
@@ -22,7 +21,7 @@ const HomeSectionCarousel = () => {
     setActiveIndex(item);
   };
 
-  const items = mens_kurta.slice(0, 10).map((item) => (
+  const items = data.slice(0, 10).map((item) => (
     <div>
       <HomeSectionCards product={item} />
     </div>
@@ -30,6 +29,9 @@ const HomeSectionCarousel = () => {
 
   return (
     <div className="border">
+      <h2 className="text-2xl font-extrabold text-gray-900 py-5">
+        {sectionName}
+      </h2>
       <div className="relative p-5">
         <AliceCarousel
           disableButtonsControls
@@ -61,25 +63,27 @@ const HomeSectionCarousel = () => {
           </Button>
         )}
 
-        <Button
-          variant="contained"
-          className="z-50 bg-white"
-          onClick={slidePrev}
-          sx={{
-            position: "absolute",
-            top: "8rem",
-            left: "0rem",
-            transform: "translate(-50%) rotate(-90deg)",
-            bgcolor: "white",
-          }}
-        >
-          <KeyboardArrowLeftIcon
+        {activeIndex !== 0 && (
+          <Button
+            variant="contained"
+            className="z-50 bg-white"
+            onClick={slidePrev}
             sx={{
-              transform: "rotate(90deg)",
-              color: "black",
+              position: "absolute",
+              top: "8rem",
+              left: "0rem",
+              transform: "translate(-50%) rotate(-90deg)",
+              bgcolor: "white",
             }}
-          />
-        </Button>
+          >
+            <KeyboardArrowLeftIcon
+              sx={{
+                transform: "rotate(90deg)",
+                color: "black",
+              }}
+            />
+          </Button>
+        )}
       </div>
     </div>
   );
