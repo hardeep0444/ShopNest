@@ -1,3 +1,4 @@
+
 package com.shopnest.controller;
 
 import org.springframework.http.HttpStatus;
@@ -54,7 +55,7 @@ public class AuthController {
 		{
 			throw new UserException("Email is Already Used with Another Account");
 		}
-		
+//		Creating new user
 		User createdUser = new User();
 		createdUser.setEmail(email);
 		createdUser.setPassword(passwordEncoder.encode(password));
