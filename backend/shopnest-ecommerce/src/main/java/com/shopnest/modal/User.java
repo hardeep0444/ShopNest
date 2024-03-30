@@ -25,30 +25,32 @@ import lombok.NoArgsConstructor;
 @Entity
 public class User {
 
-    @Id
-    @GeneratedValue(strategy  = GenerationType.AUTO)
-    private Long id;
-    
-    private String firstName;
-    
-    private String lastName;
-
-    private String password;
-
-    private String email;
-
-//    @Enumerated(EnumType.STRING)
-    private String role;
-    
-    private String mobile;
-
-    
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Address> addresses=new ArrayList<>();
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	 @Column(name = "first_name")
+	private String firstName;
+	
+	 @Column(name = "last_name")
+	private String lastName;
+	
+	 @Column(name = "password")
+	private String password;
+	
+	@Column(name = "email")
+	private String email;
+	
+	private String role;
+	
+	private String mobile;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Address> Address=new ArrayList<>();
+	
     @Embedded
-    @ElementCollection 
-    @CollectionTable(name="payment_information", joinColumns = @JoinColumn(name="user_id"))
+    @ElementCollection
+    @CollectionTable(name="payment_information",joinColumns = @JoinColumn(name="user_id"))
     private List<PaymentInformation> paymentInformation=new ArrayList<>();
 
     @JsonIgnore
@@ -60,13 +62,13 @@ public class User {
     private List<Review>reviews=new ArrayList<>();
     
     private LocalDateTime createdAt;
-
+    
     public User() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public User(Long id, String firstName, String lastName, String password, String email, String role, String mobile,
-			List<Address> addresses, List<PaymentInformation> paymentInformation, List<Rating> ratings,
+			List<com.shopnest.modal.Address> address, List<PaymentInformation> paymentInformation, List<Rating> ratings,
 			List<Review> reviews, LocalDateTime createdAt) {
 		super();
 		this.id = id;
@@ -76,7 +78,7 @@ public class User {
 		this.email = email;
 		this.role = role;
 		this.mobile = mobile;
-		this.addresses = addresses;
+		Address = address;
 		this.paymentInformation = paymentInformation;
 		this.ratings = ratings;
 		this.reviews = reviews;
@@ -139,12 +141,12 @@ public class User {
 		this.mobile = mobile;
 	}
 
-	public List<Address> getAddresses() {
-		return addresses;
+	public List<Address> getAddress() {
+		return Address;
 	}
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
+	public void setAddress(List<Address> address) {
+		Address = address;
 	}
 
 	public List<PaymentInformation> getPaymentInformation() {
@@ -178,6 +180,8 @@ public class User {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
+    
+    
     
     
 }

@@ -2,6 +2,7 @@ package com.shopnest.controller;
 
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,10 @@ import com.shopnest.modal.Product;
 import com.shopnest.service.ProductService;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api")
 public class ProductController {
 	
+	@Autowired
 	private ProductService productService;
 	
 	public ProductController(ProductService productService) {

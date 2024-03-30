@@ -1,9 +1,12 @@
 package com.shopnest.modal;
 
+import com.shopnest.user.PaymentMethod;
+import com.shopnest.user.PaymentStatus;
+
 public class PaymentDetails {
 	
-	private String paymentMethod;
-	private String status;
+	private PaymentMethod paymentMethod;
+	private PaymentStatus status;
 	private String paymentId;
 	private String razorpayPaymentLinkId;
 	private String razorpayPaymentLinkReferenceId;
@@ -14,19 +17,19 @@ public class PaymentDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getPaymentMethod() {
+	public PaymentMethod getPaymentMethod() {
 		return paymentMethod;
 	}
 
-	public void setPaymentMethod(String paymentMethod) {
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
-	public String getStatus() {
+	public PaymentStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(PaymentStatus status) {
 		this.status = status;
 	}
 
@@ -70,5 +73,6 @@ public class PaymentDetails {
 		this.razorpayPaymentId​ = razorpayPaymentId​;
 	}
 	
+
 	
 }

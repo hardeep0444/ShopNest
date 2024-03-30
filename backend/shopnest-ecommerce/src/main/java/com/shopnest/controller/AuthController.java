@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shopnest.config.JwtProvider;
 import com.shopnest.exception.UserException;
+import com.shopnest.modal.Cart;
 import com.shopnest.modal.User;
 import com.shopnest.repository.UserRepository;
 import com.shopnest.request.LoginRequest;
 import com.shopnest.response.AuthResponse;
+import com.shopnest.service.CartService;
 import com.shopnest.service.CustomUserServiceImplementation;
 
 @RestController
@@ -30,15 +32,17 @@ public class AuthController {
 	private JwtProvider jwtProvider;
 	private PasswordEncoder passwordEncoder;
 	private CustomUserServiceImplementation customUserServiceImplementation;
+	private CartService cartService;
 	
 	
 	
 	public AuthController(UserRepository userRepository, JwtProvider jwtProvider, PasswordEncoder passwordEncoder,
-			CustomUserServiceImplementation customUserServiceImplementation) {
+			CustomUserServiceImplementation customUserServiceImplementation, CartService cartService) {
 		this.userRepository = userRepository;
 		this.jwtProvider = jwtProvider;
 		this.passwordEncoder = passwordEncoder;
 		this.customUserServiceImplementation = customUserServiceImplementation;
+		this.cartService = cartService;
 	}
 
 	@PostMapping("/signup")
@@ -64,7 +68,7 @@ public class AuthController {
 		
 //		saving new user in the database
 		User savedUser = userRepository.save(createdUser);
-		
+		Cart cart=cartService.createCart(savedUser);
 		Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail(), savedUser.getPassword()); 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		

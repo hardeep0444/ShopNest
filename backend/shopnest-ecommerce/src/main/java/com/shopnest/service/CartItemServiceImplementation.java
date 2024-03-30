@@ -48,13 +48,11 @@ public class CartItemServiceImplementation implements CartItemService{
 		
 		if(user.getId().equals(userId)) {
 			
-			item.setQuantity(cartItem.getQuantity());
+			item.setQuantity(item.getQuantity()+1);
 			item.setPrice(item.getQuantity()*item.getProduct().getPrice());
 			item.setDiscountedPrice(item.getQuantity()*item.getProduct().getDiscountedPrice());
 			
 			return cartItemRepository.save(item);
-				
-			
 		}
 		else {
 			throw new CartItemException("You can't update  another users cart_item");
@@ -82,6 +80,7 @@ public class CartItemServiceImplementation implements CartItemService{
 		else {
 			throw new UserException("you can't remove another user's item");
 		}
+		
 		
 	}
 

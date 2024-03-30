@@ -2,7 +2,9 @@ package com.shopnest.service;
 
 import org.springframework.stereotype.Service;
 
+import com.shopnest.exception.CartItemException;
 import com.shopnest.exception.ProductException;
+import com.shopnest.exception.UserException;
 import com.shopnest.modal.Cart;
 import com.shopnest.modal.CartItem;
 import com.shopnest.modal.Product;
@@ -53,11 +55,21 @@ public class CartServiceImplementation implements CartService{
 			cartItem.setPrice(price);
 			cartItem.setSize(req.getSize());
 			
-			CartItem creatCartItem=cartItemService.createCartItem(cartItem);
-			cart.getCartItems().add(creatCartItem);
+			cartItemService.createCartItem(cartItem);
 			
-			return creatCartItem;
 		}
+		else {
+			
+				try {
+					cartItemService.updateCartItem(userId, isPresent.getId(), isPresent);
+				} catch (CartItemException e) {
+					
+					e.printStackTrace();
+				} catch (UserException e) {
+					e.printStackTrace();
+				}
+		}
+		findUserCart(userId);
 		return isPresent;
 		
 	}
