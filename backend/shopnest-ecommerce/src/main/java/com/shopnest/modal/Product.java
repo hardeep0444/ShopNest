@@ -72,10 +72,6 @@ public class Product {
     private Category category;
     
     private LocalDateTime createdAt;
-    
-    public Product() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public Product(Long id, String title, String description, int price, int discountedPrice, int discountPersent,
 			int quantity, String brand, String color, Set<Size> sizes, String imageUrl, List<Rating> ratings,
@@ -97,6 +93,10 @@ public class Product {
 		this.numRatings = numRatings;
 		this.category = category;
 		this.createdAt = createdAt;
+	}
+    
+    public Product() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Long getId() {
@@ -226,6 +226,8 @@ public class Product {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
+    
+    
     
     
 }

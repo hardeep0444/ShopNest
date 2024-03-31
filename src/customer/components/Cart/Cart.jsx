@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CartItem from "./CartItem";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCart } from "../../../State/Cart/Action";
 
 const Cart = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { cart } = useSelector((store) => store);
+  useEffect(() => {
+    dispatch(getCart());
+  }, [cart.updatecartItem, cart.deletecartItem]);
+
   const handleCheckout = () => {
     navigate("/checkout?step=2");
   };
   return (
     <div className="lg:grid grid-cols-3 lg:px-16 relative">
       <div className="col-span-2">
-        {[1, 1, 1, 1].map((item) => (
-          <CartItem />
+        {cart.cart?.cartItems.map((item) => (
+          <CartItem item={item} />
         ))}
       </div>
       <div className="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0 ">
@@ -22,11 +30,11 @@ const Cart = () => {
           <div className="space-y-3 font-semibold mb-10">
             <div className="flex justify-between pt-3 text-black ">
               <span>Price</span>
-              <span>₹4697</span>
+              <span>₹{cart.cart?.totalPrice}</span>
             </div>
             <div className="flex justify-between ">
               <span>Discount</span>
-              <span className="text-green-700">-₹3419</span>
+              <span className="text-green-700">-₹{cart.cart?.discount}</span>
             </div>
             <div className="flex justify-between">
               <span>Delivery Charges</span>
@@ -34,7 +42,9 @@ const Cart = () => {
             </div>
             <div className="flex justify-between font-bold text-lg">
               <span>Total Amount</span>
-              <span className="text-green-700">₹1278</span>
+              <span className="text-green-700">
+                ₹{cart.cart?.totalDiscountedPrice}
+              </span>
             </div>
           </div>
           <Button
