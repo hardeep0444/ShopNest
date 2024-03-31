@@ -111,7 +111,7 @@ public class AuthController {
 			throw new BadCredentialsException("Invalid Pasword......");
 		}
 	
-		return new UsernamePasswordAuthenticationToken(password,null, userDetails.getAuthorities());
+		return new UsernamePasswordAuthenticationToken(userDetails,null, userDetails.getAuthorities());
 	}
 	
 }
