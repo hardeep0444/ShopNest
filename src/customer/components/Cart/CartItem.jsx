@@ -39,7 +39,7 @@ const CartItem = ({ item }) => {
           <div className="flex space-x-2 items-center pt-3">
             <p className="opacity-50 line-through">₹{item?.product?.price}</p>
             <p className="font-semibold text-lg">
-              ₹{item?.product?.discountedPrice}
+              ₹{(item?.product?.discountedPrice)*(item?.quantity)}
             </p>
             <p className="text-green-600 font-semibold">
               {item?.product?.discountPersent}% off
@@ -52,7 +52,7 @@ const CartItem = ({ item }) => {
         <div className="flex items-center space-x-2 ">
           <IconButton
             onClick={() => handleUpdateCartItem(-1)}
-            disabled={item.quantity <= 1}
+            disabled={item?.quantity <= 1}
             color="primary"
             aria-label="add an alarm"
           >
