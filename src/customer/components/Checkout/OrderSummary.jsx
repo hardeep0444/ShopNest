@@ -6,6 +6,7 @@ import CartItem from "../Cart/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getOrderById } from "../../../State/Order/Action";
+import { createPayment } from "../../../State/Payment/Action";
 
 const OrderSummary = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ const OrderSummary = () => {
     dispatch(getOrderById(orderId));
   }, [orderId]);
 
+  const handleCheckout = () => {
+    dispatch(createPayment(orderId));
+  };
   return (
     <div>
       <div className="p-5 shadow-lg rounded-s-md border">
@@ -61,6 +65,7 @@ const OrderSummary = () => {
               type="submit"
               className="w-full mt-5"
               sx={{ px: "2.5rem", py: ".7rem", width: "100%" }}
+              onClick={handleCheckout}
             >
               Checkout
             </Button>
