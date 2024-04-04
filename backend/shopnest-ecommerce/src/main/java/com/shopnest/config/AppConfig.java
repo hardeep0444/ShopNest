@@ -40,7 +40,8 @@ public class AppConfig {
 
                         cfg.setAllowedOrigins(Arrays.asList(
 
-                                "http://localhost:3000"
+                                "http://localhost:3000",
+                                "https://shopnest-seven.vercel.app/"
 
                         )
                         );
