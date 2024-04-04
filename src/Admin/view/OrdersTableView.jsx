@@ -32,7 +32,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const OrdersTable = () => {
+const OrdersTableView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ status: "", sort: "" });
@@ -42,13 +42,12 @@ const OrdersTable = () => {
 
   useEffect(() => {
     dispatch(getOrders());
-  }, [adminOrder.deliveredOrder,adminOrder.shippedOrder,adminOrder.confirmedOrder,adminOrder.deletedOrder]);
-
-  const handleUpdateStatusMenuClick = (event, index) => {
-    const newAnchorElArray = [...anchorElArray];
-    newAnchorElArray[index] = event.currentTarget;
-    setAnchorElArray(newAnchorElArray);
-  };
+  }, [
+    adminOrder.deliveredOrder,
+    adminOrder.shippedOrder,
+    adminOrder.confirmedOrder,
+    adminOrder.deletedOrder,
+  ]);
 
   const handleUpdateStatusMenuClose = (index) => {
     const newAnchorElArray = [...anchorElArray];
@@ -66,31 +65,8 @@ const OrdersTable = () => {
     console.log("Current page:", value);
   }
 
-  const handleConfirmedOrder = (orderId, index) => {
-    handleUpdateStatusMenuClose(index);
-    dispatch(confirmOrder(orderId));
-    setOrderStatus("CONFIRMED");
-  };
-
-  const handleShippedOrder = (orderId, index) => {
-    handleUpdateStatusMenuClose(index);
-    dispatch(shipOrder(orderId));
-    setOrderStatus("ShIPPED");
-  };
-
-  const handleDeliveredOrder = (orderId, index) => {
-    handleUpdateStatusMenuClose(index);
-    dispatch(deliveredOrder(orderId));
-    setOrderStatus("DELIVERED");
-  };
-
-  const handleDeleteOrder = (orderId) => {
-    handleUpdateStatusMenuClose();
-    dispatch(deleteOrder(orderId));
-  };
-
   return (
-    <div className="p-10">
+    <Box width={"100%"}>
       <Card className="p-3">
         <CardHeader
           title="Sort"
@@ -137,7 +113,7 @@ const OrdersTable = () => {
       </Card>
       <Card className="mt-2">
         <CardHeader
-          title="All Orders"
+          title="Recent Orders"
           sx={{
             pt: 2,
             alignItems: "center",
@@ -154,12 +130,10 @@ const OrdersTable = () => {
                 <TableCell>Price</TableCell>
                 <TableCell>Id</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>Status</TableCell>
-                <TableCell sx={{ textAlign: "center" }}>Update</TableCell>
-                <TableCell sx={{ textAlign: "center" }}>Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {adminOrder?.orders?.map((item, index) => (
+              {adminOrder?.orders?.slice(0, 5).map((item, index) => (
                 <TableRow
                   hover
                   key={item.name}
@@ -222,68 +196,6 @@ const OrdersTable = () => {
                       className="text-white"
                     />
                   </TableCell>
-                  <TableCell
-                    sx={{ textAlign: "center" }}
-                    className="text-white"
-                  >
-                    {/* <Button>{item.orderStatus==="PENDING"?"PENDING": item.orderStatus==="PLACED"?"CONFIRMED":item.orderStatus==="CONFIRMED"?"SHIPPED":"DELEVERED"}</Button> */}
-                    <div>
-                      <Button
-                        id={`basic-button-${item.id}`}
-                        aria-controls={`basic-menu-${item.id}`}
-                        aria-haspopup="true"
-                        aria-expanded={Boolean(anchorElArray[index])}
-                        onClick={(event) =>
-                          handleUpdateStatusMenuClick(event, index)
-                        }
-                      >
-                        Status
-                      </Button>
-                      <Menu
-                        id={`basic-menu-${item.id}`}
-                        anchorEl={anchorElArray[index]}
-                        open={Boolean(anchorElArray[index])}
-                        onClose={() => handleUpdateStatusMenuClose(index)}
-                        MenuListProps={{
-                          "aria-labelledby": `basic-button-${item.id}`,
-                        }}
-                      >
-                        <MenuItem
-                          onClick={() => handleConfirmedOrder(item.id, index)}
-                          disabled={
-                            item.orderStatus === "DELEVERED" ||
-                            item.orderStatus === "SHIPPED" ||
-                            item.orderStatus === "CONFIRMED"
-                          }
-                        >
-                          CONFIRMED ORDER
-                        </MenuItem>
-                        <MenuItem
-                          disabled={
-                            item.orderStatus === "DELIVERED" ||
-                            item.orderStatus === "SHIPPED"
-                          }
-                          onClick={() => handleShippedOrder(item.id, index)}
-                        >
-                          SHIPPED ORDER
-                        </MenuItem>
-                        <MenuItem onClick={() => handleDeliveredOrder(item.id)}>
-                          DELIVERED ORDER
-                        </MenuItem>
-                      </Menu>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    sx={{ textAlign: "center" }}
-                    className="text-white"
-                  >
-                    <Button
-                      onClick={() => handleDeleteOrder(item.id)}
-                      variant="text"
-                    >
-                      delete
-                    </Button>
-                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -299,8 +211,8 @@ const OrdersTable = () => {
           onChange={handlePaginationChange}
         />
       </Card>
-    </div>
+    </Box>
   );
 };
 
-export default OrdersTable;
+export default OrdersTableView;

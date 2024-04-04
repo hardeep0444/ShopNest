@@ -30,7 +30,7 @@ const Achievement = () => {
   const imageSrc =
     theme.palette.mode === "light" ? "triangle-light.png" : "triangle-dark.png";
   return (
-    <Card sx={{ position: "relative", bgcolor: "#242B2E", color: "white" }}>
+    <Card sx={{ position: "relative" }}>
       <CardContent>
         <Typography variant="h6" sx={{ letterSpacing: "0.25px" }}>
           ShopNest
