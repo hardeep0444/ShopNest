@@ -94,7 +94,7 @@ const Admin = () => {
     <div className="relative flex h-[100vh]">
       <CssBaseline />
       {/* <AdminNavbar handleSideBarViewInMobile={handleSideBarViewInMobile} /> */}
-      <div className="w-[15%] border border-r-gray-300 h-full fixed top-0">
+      <div className="shadow-lg shadow-gray-600 w-[15%] h-full fixed top-0">
         {drawer}
       </div>
 
